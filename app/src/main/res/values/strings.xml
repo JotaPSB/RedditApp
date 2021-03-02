@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">RedditApp</string>
+    <string name="username">u/bestredditapp</string>
+    <string name="perfil">My profile</string>
+    <string name="coins">Reddit coins</string>
+    <string name="premium">Reddit Premium</string>
+    <string name="saved">Saved</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <string name="styleAvatar">Style Avatar</string>
+    <string name="karmaNumber">1</string>
+    <string name="karmaText">Karma</string>
+    <string name="ageNumber">8</string>
+    <string name="ageText">Reddit age</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="notifications">Notifications</string>
+    <string name="messages">Messages</string>
+    <string name="menu">Menu</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>
