@@ -12,6 +12,9 @@
     <string name="karmaText">Karma</string>
     <string name="ageNumber">8</string>
     <string name="ageText">Reddit age</string>
+    <string name="muyLejosText">Llegaste demasiado lejos amigo</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>

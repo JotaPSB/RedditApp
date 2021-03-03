@@ -41,8 +41,9 @@
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
-
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
+    <include
+        android:id="@+id/include3"
+        layout="@layout/content_main"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
