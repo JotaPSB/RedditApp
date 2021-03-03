@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/post_community"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -38,6 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/post_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -45,14 +46,14 @@
         android:layout_marginTop="3dp"
         android:fontFamily="@font/bentonsans_book"
         android:text="Posted by u/Prueba · 6h"
-        android:textStyle="bold"
         android:textColor="@color/primaryLightColor"
         android:textSize="11sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/post_community" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/post_title"
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
@@ -70,7 +71,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/post_optional_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -82,7 +83,7 @@
         android:textColor="@color/primaryLightColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@id/post_title" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -95,10 +96,10 @@
         android:src="@drawable/upvote"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@id/post_optional_text" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/post_likes"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
@@ -118,13 +119,13 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="7dp"
 
+        android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/downvote"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toEndOf="@+id/post_likes"
+        app:layout_constraintTop_toBottomOf="@+id/post_optional_text" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -140,20 +141,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
+        android:id="@+id/post_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="4dp"
-
         android:text="69"
         android:textColor="@color/primaryLightColor"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@id/post_optional_text" />
 
     <TextView
         android:id="@+id/textView5"

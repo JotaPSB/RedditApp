@@ -10,7 +10,15 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
 
+
     >
+    <include
+        android:id="@+id/include"
+        layout="@layout/top_app_bar" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/activity_main"
+        />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"

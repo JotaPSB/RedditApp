@@ -45,6 +45,7 @@
         android:fontFamily="@font/bentonsans_book"
         android:text="@string/styleAvatar"
         android:textStyle="bold"
+        app:backgroundTint="@null"
         app:cornerRadius="16dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
