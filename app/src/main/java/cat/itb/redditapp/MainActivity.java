@@ -16,6 +16,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import cat.itb.redditapp.adapter.ViewPagerAdapter;
+import cat.itb.redditapp.fragments.BlankFragment;
+import cat.itb.redditapp.fragments.ChatFragment;
+import cat.itb.redditapp.fragments.LlegasteMuyLejosFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -74,10 +77,13 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.page_4:
                         visibilidadOff();
+                        ChatFragment.imageView.setImageResource(R.drawable.reddit_chat);
                         changeFragment(chatFragment);
 
                     case R.id.page_5:
-
+                        visibilidadOff();
+                        ChatFragment.imageView.setImageResource(R.drawable.inbox);
+                        changeFragment(chatFragment);
 
                     default:
                         return true;
