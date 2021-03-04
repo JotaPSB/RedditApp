@@ -14,6 +14,26 @@
     <string name="ageText">Reddit age</string>
     <string name="muyLejosText">Llegaste demasiado lejos amigo</string>
 
+    <!--Login Screen-->
+    <string name="login">Log in to Reddit</string>
+    <string name="terms">By continuing, you agree to our User Agreement and privacy Policy.</string>
+    <string name="buttonGoogle">Continue with Google</string>
+    <string name="buttonApple">Continue with Apple</string>
+    <string name="or">OR</string>
+    <string name="hintUsername">Username</string>
+    <string name="hintPassword">Password</string>
+    <string name="newReddit">New to Reddit?</string>
+    <string name="signUp">Sign up</string>
+    <string name="forgotPass">Forgot password</string>
+    <string name="buttonContinue">Continue</string>
+
+    <!--Register Screen-->
+    <string name="createAcc">Create an account</string>
+    <string name="checkboxText">I agree to receive emails about cool stuff on Reddit.</string>
+    <string name="hintEmail">Email</string>
+    <string name="already">Already a Redditor?</string>
+    <string name="logText">Log in</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

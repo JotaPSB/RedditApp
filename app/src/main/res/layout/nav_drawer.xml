@@ -19,7 +19,6 @@
         layout="@layout/activity_main"/>
 
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
@@ -40,7 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="horizontal">
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp">
 
             <ImageView
                 android:id="@+id/footer_item_1"
