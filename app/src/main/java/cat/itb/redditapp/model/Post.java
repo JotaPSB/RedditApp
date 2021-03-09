@@ -1,29 +1,40 @@
 package cat.itb.redditapp.model;
 
+import java.util.List;
+
 public class Post {
-    private String community;
+    private Community community;
     private String user;
     private String title;
     private String contentText;
     private int votes;
-    private int comments;
-    private String profilePicture;
+    private int numComments;
+    private List<Comment> comments;
 
-    public Post(String community, String user, String title, String contentText, int votes, int comments, String profilePicture) {
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Post(Community community, String user, String title, String contentText, int votes, int numComments, List<Comment> comments) {
         this.community = community;
         this.user = user;
         this.title = title;
         this.contentText = contentText;
         this.votes = votes;
+        this.numComments = numComments;
         this.comments = comments;
-        this.profilePicture = profilePicture;
     }
 
-    public String getCommunity() {
+    public Community getCommunity() {
         return community;
     }
 
-    public void setCommunity(String community) {
+    public void setCommunity(Community community) {
         this.community = community;
     }
 
@@ -59,19 +70,13 @@ public class Post {
         this.votes = votes;
     }
 
-    public int getComments() {
-        return comments;
+    public int getNumComments() {
+        return numComments;
     }
 
-    public void setComments(int comments) {
-        this.comments = comments;
+    public void setNumComments(int numComments) {
+        this.numComments = numComments;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
-    }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
 }

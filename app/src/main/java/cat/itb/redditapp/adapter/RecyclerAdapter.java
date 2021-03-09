@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import cat.itb.redditapp.R;
@@ -75,7 +73,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 optionalText.setText(optText);
             }
             likes.setText(String.valueOf(post.getVotes()));
-            comments.setText(String.valueOf(post.getComments()));
+            comments.setText(String.valueOf(post.getNumComments()));
         }
     }
 }
