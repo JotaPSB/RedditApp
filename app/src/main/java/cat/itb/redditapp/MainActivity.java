@@ -43,11 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         topAppBar = findViewById(R.id.top_app_bar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        adapter.AddFragment(new BlankFragment(),"Home");
-        adapter.AddFragment(new BlankFragment(),"Popular");
-
+        drawerLayout =findViewById(R.id.drawer_layout);
+        adapter.AddFragment(new CardFragment(),"Home");
+        adapter.AddFragment(new CardFragment(),"Popular");
         topAppBar.setNavigationOnClickListener(new MaterialToolbar.OnClickListener() {
             @Override
             public void onClick(View v) {
