@@ -16,9 +16,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import cat.itb.redditapp.adapter.ViewPagerAdapter;
-import cat.itb.redditapp.fragments.BlankFragment;
+import cat.itb.redditapp.fragments.CardFragment;
 import cat.itb.redditapp.fragments.ChatFragment;
-import cat.itb.redditapp.fragments.LlegasteMuyLejosFragment;
+import cat.itb.redditapp.fragments.CompactCardFragment;
+import cat.itb.redditapp.fragments.HelperFragment;
+import cat.itb.redditapp.fragments.InboxFragment;
+import cat.itb.redditapp.fragments.PostFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private MaterialToolbar topAppBar;
     private BottomNavigationView bottomNavigationView;
     private ChatFragment chatFragment = new ChatFragment();
-    private LlegasteMuyLejosFragment lejosFragment = new LlegasteMuyLejosFragment();
+    private InboxFragment inboxFragment = new InboxFragment();
+    private HelperFragment lejosFragment = new HelperFragment();
+    private PostFragment postFragment = new PostFragment();
 
 
     @Override
@@ -43,11 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         topAppBar = findViewById(R.id.top_app_bar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        adapter.AddFragment(new BlankFragment(),"Home");
-        adapter.AddFragment(new BlankFragment(),"Popular");
-
+        drawerLayout =findViewById(R.id.drawer_layout);
+        adapter.AddFragment(new CardFragment(),"Home");
+        adapter.AddFragment(new CompactCardFragment(),"Popular");
         topAppBar.setNavigationOnClickListener(new MaterialToolbar.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.page_3:
-                        visibilidadOn();
+                        visibilidadOff();
+                        changeFragment(postFragment);
                         return true;
 
                     case R.id.page_2:
@@ -77,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.page_4:
                         visibilidadOff();
-                        ChatFragment.imageView.setImageResource(R.drawable.reddit_chat);
                         changeFragment(chatFragment);
+                        return true;
 
                     case R.id.page_5:
                         visibilidadOff();
-                        ChatFragment.imageView.setImageResource(R.drawable.inbox);
-                        changeFragment(chatFragment);
+                        changeFragment(inboxFragment);
+                        return true;
 
                     default:
                         return true;

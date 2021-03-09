@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="3dp"
@@ -19,7 +18,6 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/profile_picture"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -55,7 +53,6 @@
     <TextView
         android:id="@+id/post_title"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -70,20 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/post_optional_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Accusantium, assumenda corporis deleniti, eius excepturi facere facilis fugiat labore nesciunt nisi pariatur perspiciatis porro quia quod reiciendis tenetur voluptas voluptatem voluptatum. Aliquam aperiam atque blanditiis commodi deleniti dolor, exercitationem ipsam, iste libero maxime nisi perspiciatis possimus quas tempore vel velit, voluptatibus?"
-        android:textColor="@color/primaryLightColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post_title" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -96,12 +79,11 @@
         android:src="@drawable/upvote"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post_optional_text" />
+        app:layout_constraintTop_toBottomOf="@id/post_title" />
 
     <TextView
         android:id="@+id/post_likes"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
@@ -119,13 +101,12 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/downvote"
         app:layout_constraintStart_toEndOf="@+id/post_likes"
-        app:layout_constraintTop_toBottomOf="@+id/post_optional_text" />
+        app:layout_constraintTop_toBottomOf="@+id/post_title" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -154,7 +135,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@id/post_optional_text" />
+        app:layout_constraintTop_toBottomOf="@id/post_title" />
 
     <TextView
         android:id="@+id/textView5"

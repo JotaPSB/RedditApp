@@ -48,6 +48,7 @@
         android:fontFamily="@font/bentonsans_book"
         android:text="@string/styleAvatar"
         android:textStyle="bold"
+        app:cornerRadius="16dp" 
         android:drawableLeft="@drawable/tshirt_16"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
