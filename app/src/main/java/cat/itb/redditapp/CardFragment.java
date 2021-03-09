@@ -31,7 +31,7 @@ public class CardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postViewModel = new ViewModelProvider(getActivity()).get(PostViewModel.class);
-        posts = PostViewModel.booksList;
+        posts = PostViewModel.posts;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CardFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_blank, container, false);
         recyclerView = v.findViewById(R.id.recycler_view);
-        adapter = new RecyclerAdapter(PostViewModel.booksList,R.layout.item_list_view);
+        adapter = new RecyclerAdapter(posts,R.layout.item_list_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

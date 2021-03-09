@@ -3,7 +3,7 @@ package cat.itb.redditapp.model;
 import java.util.List;
 
 public class Post {
-    private Community community;
+    private String community;
     private String user;
     private String title;
     private String contentText;
@@ -20,7 +20,7 @@ public class Post {
         this.comments = comments;
     }
 
-    public Post(Community community, String user, String title, String contentText, int votes, int numComments, List<Comment> comments) {
+    public Post(String community, String user, String title, String contentText, int votes, int numComments, List<Comment> comments) {
         this.community = community;
         this.user = user;
         this.title = title;
@@ -30,11 +30,11 @@ public class Post {
         this.comments = comments;
     }
 
-    public Community getCommunity() {
+    public String getCommunity() {
         return community;
     }
 
-    public void setCommunity(Community community) {
+    public void setCommunity(String community) {
         this.community = community;
     }
 
