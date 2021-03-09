@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryDarkColor"
-    tools:context=".fragments.CardFragment">
+    tools:context=".fragments.ChatFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <ImageView
+        android:id="@+id/imageView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
+        android:src="@drawable/reddit_chat" />
 </FrameLayout>

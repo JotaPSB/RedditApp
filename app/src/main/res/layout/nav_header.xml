@@ -39,18 +39,22 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
         android:layout_width="245dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="24dp"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
         android:background="@drawable/gradient"
+        app:backgroundTint="@null"
         android:fontFamily="@font/bentonsans_book"
         android:text="@string/styleAvatar"
         android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:cornerRadius="16dp" />
+        app:cornerRadius="16dp" 
+        android:drawableLeft="@drawable/tshirt_16"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp">
 
         <ImageView

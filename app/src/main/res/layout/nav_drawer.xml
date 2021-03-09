@@ -8,17 +8,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
+    tools:openDrawer="start">
 
-
-    >
     <include
         android:id="@+id/include"
         layout="@layout/top_app_bar" />
+
     <include
         android:id="@+id/include2"
-        layout="@layout/activity_main"
-        />
+        layout="@layout/activity_main"/>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
@@ -40,7 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="horizontal">
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp">
 
             <ImageView
                 android:id="@+id/footer_item_1"

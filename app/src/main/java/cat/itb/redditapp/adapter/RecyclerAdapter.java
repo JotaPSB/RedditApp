@@ -65,7 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         @SuppressLint("SetTextI18n")
         public void bind(Post post){
-            community.setText("/r"+post.getCommunity());
+            community.setText("r/"+post.getCommunity());
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
             String optText = post.getContentText();

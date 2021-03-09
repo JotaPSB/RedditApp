@@ -1,0 +1,38 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/bottom_navigation_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="horizontal"
+
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <FrameLayout
+            android:id="@+id/scrim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            app:behavior_hideable ="true"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface"/>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
