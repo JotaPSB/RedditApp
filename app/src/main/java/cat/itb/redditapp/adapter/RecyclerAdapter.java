@@ -65,11 +65,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         @SuppressLint("SetTextI18n")
         public void bind(Post post){
-            community.setText("/r"+post.getCommunity());
+            community.setText("r/"+post.getCommunity());
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
             String optText = post.getContentText();
-            if (optText!=null && !optText.isEmpty()){
+            if (optText!=null && !optText.isEmpty() && layout != R.layout.item_compact_view){
                 optionalText.setText(optText);
             }
             likes.setText(String.valueOf(post.getVotes()));
