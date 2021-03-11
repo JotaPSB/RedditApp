@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setVisibility(View.GONE);
     }
 
+
     private void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
