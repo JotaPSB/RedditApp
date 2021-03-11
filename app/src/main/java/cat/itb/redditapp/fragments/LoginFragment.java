@@ -3,20 +3,22 @@ package cat.itb.redditapp.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
+
+import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
 
 public class LoginFragment extends Fragment {
 
-    public LoginFragment() {
-
-    }
-
-
+    TextView signUp;
+    MaterialButton continueButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,29 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        signUp = v.findViewById(R.id.textViewSignUp);
+        continueButton = v.findViewById(R.id.button3);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new RegistroFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment);
+                MainActivity.currentFragment = fragment;
+                transaction.commit();
+            }
+        });
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.remove(MainActivity.currentFragment);
+                MainActivity.loginShow();
+                transaction.commit();
+            }
+        });
+        return v;
     }
 }
