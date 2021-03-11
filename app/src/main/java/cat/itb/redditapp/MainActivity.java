@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        if(savedInstanceState == null){
+            loginHide();
+            currentFragment = new LoginFragment();
+            changeFragment(currentFragment);
+        }
     }
 
     public static void visibilidadOn(){
