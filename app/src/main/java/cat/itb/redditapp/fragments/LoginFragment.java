@@ -1,5 +1,7 @@
 package cat.itb.redditapp.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -72,14 +74,17 @@ public class LoginFragment extends Fragment {
                 password = editPassword.getText().toString();
                 
                 if (!email.isEmpty() && !password.isEmpty()){
+                    guardarPreferencias();
                     loginUser();
                 }else {
                     Toast.makeText(getContext(), "Rellena los campos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        cargarPreferencias();
         return v;
     }
+
 
     private void loginUser(){
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -95,5 +100,30 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void cargarPreferencias() {
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+
+        String user = preferences.getString("user","");
+        String pass = preferences.getString("pass","");
+
+        editEmail.setText(user);
+        editPassword.setText(pass);
+    }
+
+    private void guardarPreferencias(){
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        email = editEmail.getText().toString();
+        password = editPassword.getText().toString();
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user", email);
+        editor.putString("pass", password);
+
+        editEmail.setText(email);
+        editPassword.setText(password);
+
+        editor.commit();
     }
 }
