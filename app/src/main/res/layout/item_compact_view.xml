@@ -10,7 +10,7 @@
     >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/com_picture_post"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
@@ -32,7 +32,7 @@
         android:textColor="@color/primaryTextColor"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/com_picture_post"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:textColor="@color/primaryLightColor"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/com_picture_post"
         app:layout_constraintTop_toBottomOf="@id/post_community" />
 
     <TextView

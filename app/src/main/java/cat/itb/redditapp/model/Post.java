@@ -1,8 +1,11 @@
 package cat.itb.redditapp.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Post {
+public class Post implements Serializable {
+    private String postId;
     private String community;
     private String user;
     private String title;
@@ -10,6 +13,7 @@ public class Post {
     private int votes;
     private int numComments;
     private List<Comment> comments;
+    private String type;
 
 
     public List<Comment> getComments() {
@@ -20,14 +24,35 @@ public class Post {
         this.comments = comments;
     }
 
-    public Post(String community, String user, String title, String contentText, int votes, int numComments, List<Comment> comments) {
+    public Post() {
+    }
+
+    public Post(String community, String user, String title, String contentText, int votes, int numComments, String type) {
+
         this.community = community;
         this.user = user;
         this.title = title;
         this.contentText = contentText;
         this.votes = votes;
         this.numComments = numComments;
-        this.comments = comments;
+        this.comments = new ArrayList<>();
+        this.type = type;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCommunity() {

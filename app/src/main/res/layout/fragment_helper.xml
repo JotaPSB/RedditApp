@@ -7,11 +7,12 @@
     tools:context=".fragments.HelperFragment">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/com_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:src="@drawable/communities"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
