@@ -90,10 +90,6 @@ public class RegistroFragment extends Fragment {
                 }else {
                     Toast.makeText(getContext(), "Rellena los campos y acepta los términos", Toast.LENGTH_SHORT).show();
                 }
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.remove(MainActivity.currentFragment);
-                MainActivity.loginShow();
-                transaction.commit();
             }
         });
         return v;

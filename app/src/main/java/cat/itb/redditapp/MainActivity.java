@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.page_2:
                         visibilidadOff();
-                        changeFragment(postFragment);
+                        changeFragment(lejosFragment);
                         return true;
 
                     case R.id.page_3:
