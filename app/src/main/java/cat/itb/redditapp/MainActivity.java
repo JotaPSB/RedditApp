@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -17,11 +18,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.File;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private static ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private DrawerLayout drawerLayout;
+    private LoginFragment loginFragment = new LoginFragment();
     private ChatFragment chatFragment = new ChatFragment();
     private InboxFragment inboxFragment = new InboxFragment();
     private HelperFragment lejosFragment = new HelperFragment();
@@ -56,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
     private static MaterialToolbar topAppBar;
     private static AppBarLayout appBarLayout;
     private static BottomNavigationView bottomNavigationView;
+
+    private Button cerrarSesion;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -66,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
+
+        mAuth = FirebaseAuth.getInstance();
+        cerrarSesion = findViewById(R.id.footer_item_2);
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                loginHide();
+                Fragment fragment = new LoginFragment();
+                FragmentTransaction transaction = MainActivity.this.getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, fragment);
+                transaction.commit();
+            }
+        });
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         topAppBar = findViewById(R.id.top_app_bar);
@@ -94,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.page_2:
                         visibilidadOff();
-                        changeFragment(lejosFragment);
+                        changeFragment(postFragment);
                         return true;
 
                     case R.id.page_3:
