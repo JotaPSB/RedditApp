@@ -2,27 +2,44 @@ package cat.itb.redditapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DatabaseReference;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import cat.itb.redditapp.adapter.ViewPagerAdapter;
 import cat.itb.redditapp.fragments.CardFragment;
 import cat.itb.redditapp.fragments.ChatFragment;
-import cat.itb.redditapp.fragments.LlegasteMuyLejosFragment;
+import cat.itb.redditapp.fragments.CompactCardFragment;
+import cat.itb.redditapp.fragments.HelperFragment;
+import cat.itb.redditapp.fragments.InboxFragment;
+import cat.itb.redditapp.fragments.PostFragment;
 import cat.itb.redditapp.fragments.LoginFragment;
+import cat.itb.redditapp.helper.DatabaseHelper;
+import cat.itb.redditapp.model.Community;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,13 +48,14 @@ public class MainActivity extends AppCompatActivity {
     private static ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private DrawerLayout drawerLayout;
+    private ChatFragment chatFragment = new ChatFragment();
+    private InboxFragment inboxFragment = new InboxFragment();
+    private HelperFragment lejosFragment = new HelperFragment();
+    private PostFragment postFragment = new PostFragment();
+    public static Fragment currentFragment;
     private static MaterialToolbar topAppBar;
     private static AppBarLayout appBarLayout;
     private static BottomNavigationView bottomNavigationView;
-    public static Fragment currentFragment;
-    NavigationView navigationView;
-    private ChatFragment chatFragment = new ChatFragment();
-    private LlegasteMuyLejosFragment lejosFragment = new LlegasteMuyLejosFragment();
 
 
     @Override
@@ -48,26 +66,27 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
-        navigationView = findViewById(R.id.navigation_view_bottom);
-        BottomSheetBehavior<NavigationView> bottomSheetBehavior = BottomSheetBehavior.from(navigationView);
+
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         topAppBar = findViewById(R.id.top_app_bar);
         drawerLayout =findViewById(R.id.drawer_layout);
         appBarLayout = findViewById(R.id.app_bar);
         adapter.AddFragment(new CardFragment(),"Home");
-        adapter.AddFragment(new CardFragment(),"Popular");
+        adapter.AddFragment(new CompactCardFragment(),"Popular");
         topAppBar.setNavigationOnClickListener(new MaterialToolbar.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
+
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -76,37 +95,33 @@ public class MainActivity extends AppCompatActivity {
                         visibilidadOn();
                         return true;
 
-                    case R.id.page_3:
-                        visibilidadOn();
-                        return true;
-
                     case R.id.page_2:
                         visibilidadOff();
                         changeFragment(lejosFragment);
                         return true;
 
+                    case R.id.page_3:
+                        loginHide();
+                        changeFragment(postFragment);
+                        return true;
+
                     case R.id.page_4:
                         visibilidadOff();
-                        ChatFragment fragment = new ChatFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("foto", R.drawable.reddit_chat);
-                        fragment.setArguments(bundle);
-                        changeFragment(fragment);
+                        changeFragment(chatFragment);
+                        return true;
+
 
                     case R.id.page_5:
                         visibilidadOff();
-                        fragment = new ChatFragment();
-                        bundle = new Bundle();
-                        bundle.putInt("foto", R.drawable.inbox);
-                        fragment.setArguments(bundle);
-                        changeFragment(fragment);
+                        changeFragment(inboxFragment);
+                        return true;
 
                     default:
                         return true;
                 }
             }
         });
-        if(savedInstanceState == null) {
+        if(savedInstanceState == null){
             loginHide();
             currentFragment = new LoginFragment();
             changeFragment(currentFragment);
@@ -141,4 +156,6 @@ public class MainActivity extends AppCompatActivity {
     private void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
+
+
 }

@@ -24,6 +24,7 @@
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabTextColor="@color/primaryTextColor" />
 
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_id"
         android:layout_width="wrap_content"
