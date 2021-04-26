@@ -28,7 +28,6 @@
         android:background="@color/primaryColor"
         app:headerLayout="@layout/nav_header"
         app:itemIconPadding="16dp"
-
         app:itemIconTint="@color/primaryLightColor"
         app:itemTextAppearance="@style/BentonTextViewStyle"
         app:itemTextColor="@color/primaryTextColor"
@@ -57,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:text="@string/settings"
+                android:text="@string/logout"
                 android:textSize="12dp"
                 android:textColor="@color/primaryTextColor" />
 

@@ -10,8 +10,8 @@
     android:background="@color/primaryColor"
     >
 
-    <ImageView
-        android:id="@+id/imageView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/com_picture_post"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
@@ -19,7 +19,6 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/profile_picture"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -34,7 +33,7 @@
         android:textColor="@color/primaryTextColor"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/com_picture_post"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -49,13 +48,12 @@
         android:textColor="@color/primaryLightColor"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/com_picture_post"
         app:layout_constraintTop_toBottomOf="@id/post_community" />
 
     <TextView
         android:id="@+id/post_title"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -101,7 +99,6 @@
     <TextView
         android:id="@+id/post_likes"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
@@ -119,7 +116,6 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="15dp"

@@ -2,13 +2,20 @@ package cat.itb.redditapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +25,13 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import cat.itb.redditapp.adapter.ViewPagerAdapter;
 import cat.itb.redditapp.fragments.CardFragment;
@@ -27,6 +41,8 @@ import cat.itb.redditapp.fragments.HelperFragment;
 import cat.itb.redditapp.fragments.InboxFragment;
 import cat.itb.redditapp.fragments.PostFragment;
 import cat.itb.redditapp.fragments.LoginFragment;
+import cat.itb.redditapp.helper.DatabaseHelper;
+import cat.itb.redditapp.model.Community;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private static BottomNavigationView bottomNavigationView;
 
     private Button cerrarSesion;
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -54,20 +69,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_drawer);
 
+
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
 
-        mAuth = FirebaseAuth.getInstance();
         cerrarSesion = findViewById(R.id.footer_item_2);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                DatabaseHelper.mAuth.signOut();
                 loginHide();
                 Fragment fragment = new LoginFragment();
                 FragmentTransaction transaction = MainActivity.this.getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, fragment);
                 transaction.commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
 
@@ -83,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -101,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.page_3:
-                        visibilidadOff();
+                        loginHide();
                         changeFragment(postFragment);
                         return true;
 
@@ -134,11 +151,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void visibilidadOff(){
+    private static void visibilidadOff(){
         tabLayout.setVisibility(View.GONE);
         viewPager.setVisibility(View.GONE);
     }
-    public void loginHide(){
+    public static void loginHide(){
         visibilidadOff();
         topAppBar.setVisibility(View.INVISIBLE);
         bottomNavigationView.setVisibility(View.INVISIBLE);
@@ -156,4 +173,6 @@ public class MainActivity extends AppCompatActivity {
     private void changeFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
+
+
 }
