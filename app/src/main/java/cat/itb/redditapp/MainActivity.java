@@ -9,9 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,10 +21,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -60,8 +65,12 @@ public class MainActivity extends AppCompatActivity {
     private static MaterialToolbar topAppBar;
     private static AppBarLayout appBarLayout;
     private static BottomNavigationView bottomNavigationView;
-
+    private static NavigationView bottomDrawer;
+    private static FrameLayout scrim;
+    private static BottomSheetBehavior<NavigationView> bottomSheetBehavior;
     private Button cerrarSesion;
+    private FirebaseAuth mAuth;
+    
 
 
     @Override
@@ -90,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         topAppBar = findViewById(R.id.top_app_bar);
         drawerLayout =findViewById(R.id.drawer_layout);
+        bottomDrawer = findViewById(R.id.bottom_drawer);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomDrawer);
+        scrim = findViewById(R.id.scrim);
+        scrim.setVisibility(View.INVISIBLE);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         appBarLayout = findViewById(R.id.app_bar);
         adapter.AddFragment(new CardFragment(),"Home");
         adapter.AddFragment(new CompactCardFragment(),"Popular");
@@ -102,7 +116,13 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
+        scrim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                scrim.setVisibility(View.INVISIBLE);
+            }
+        });
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -118,8 +138,10 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.page_3:
-                        loginHide();
-                        changeFragment(postFragment);
+
+//                        changeFragment(postFragment);
+                        scrim.setVisibility(View.VISIBLE);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         return true;
 
                     case R.id.page_4:
@@ -136,6 +158,34 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         return true;
                 }
+            }
+        });
+        bottomDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                PostFragment fragment = new PostFragment();
+                Bundle args;
+                loginHide();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                switch (item.getItemId()){
+                    case R.id.text_post:
+                        args = new Bundle();
+                        args.putString("type", "text");
+                        fragment.setArguments(args);
+                        changeFragment(fragment);
+
+                        return true;
+                    case R.id.image_post:
+                        args = new Bundle();
+                        args.putString("type", "image");
+                        fragment.setArguments(args);
+                        changeFragment(fragment);
+                        return true;
+                    default:
+                        return true;
+                }
+
             }
         });
         if(savedInstanceState == null){

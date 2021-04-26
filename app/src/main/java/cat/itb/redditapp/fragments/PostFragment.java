@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
 import cat.itb.redditapp.helper.DatabaseHelper;
 import cat.itb.redditapp.model.Community;
@@ -31,6 +33,7 @@ public class PostFragment extends Fragment {
     CircleImageView comPicture;
     TextInputEditText titlePost;
     TextInputEditText optionalPost;
+    MaterialToolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +49,14 @@ public class PostFragment extends Fragment {
         post = v.findViewById(R.id.post);
         titlePost = v.findViewById(R.id.post_title);
         optionalPost = v.findViewById(R.id.post_optional_text);
+        toolbar =v.findViewById(R.id.top_app_bar_community);
         Bundle args = getArguments();
         if(args!=null){
             c = (Community) args.getSerializable("community");
-            Picasso.with(getContext()).load(c.getPicture()).into(comPicture);
-            comPicker.setText("r/"+c.getName());
+            if(c!=null) {
+                Picasso.with(getContext()).load(c.getPicture()).into(comPicture);
+                comPicker.setText("r/" + c.getName());
+            }
         }
         comPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +67,7 @@ public class PostFragment extends Fragment {
                 transaction.commit();
             }
         });
+
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,13 +89,25 @@ public class PostFragment extends Fragment {
                         }
                         c.addPost(p);
                         DatabaseHelper.communityRef.child(c.getCommunityId()).setValue(c);
-
-
-
+                        returnToMain();
                     }
                 }
             }
         });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnToMain();
+            }
+        });
         return v;
+    }
+
+    public void returnToMain(){
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.remove(MainActivity.currentFragment);
+        transaction.replace(R.id.fragment_container, new CardFragment());
+        MainActivity.loginShow();
+        transaction.commit();
     }
 }
