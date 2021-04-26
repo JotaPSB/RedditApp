@@ -70,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private static BottomSheetBehavior<NavigationView> bottomSheetBehavior;
     private Button cerrarSesion;
     private FirebaseAuth mAuth;
-
-    private Button cerrarSesion;
+    
 
 
     @Override
