@@ -69,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
             String optText = post.getContentText();
-            if (optText!=null && !optText.isEmpty()){
+            if (optText!=null && !optText.isEmpty() && layout != R.layout.item_compact_view){
                 optionalText.setText(optText);
             }
             likes.setText(String.valueOf(post.getVotes()));

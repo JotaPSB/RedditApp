@@ -8,35 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:779704036149:android:73d036f6b3d8e095a33a7c",
-        "android_client_info": {
-          "package_name": "cat.itb.reddit"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "779704036149-3vlbagrqurb1j3k2ga9k5dhmiupnlshp.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDC8S4WKloDE1uwXJvFZM-Ny5xgupP0XSY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "779704036149-3vlbagrqurb1j3k2ga9k5dhmiupnlshp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:779704036149:android:00d8d0f5a8b2603da33a7c",
         "android_client_info": {
           "package_name": "cat.itb.redditF"
