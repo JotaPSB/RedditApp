@@ -25,6 +25,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 
 import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
+import cat.itb.redditapp.helper.DatabaseHelper;
 
 public class LoginFragment extends Fragment {
 
@@ -38,7 +39,6 @@ public class LoginFragment extends Fragment {
     private String email= "";
     private String password = "";
 
-    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,6 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-
-        mAuth = FirebaseAuth.getInstance();
 
         signUp = v.findViewById(R.id.textViewSignUp);
         editEmail = v.findViewById(R.id.editTextTextPersonName);
@@ -87,7 +85,7 @@ public class LoginFragment extends Fragment {
 
 
     private void loginUser(){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        DatabaseHelper.mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -110,6 +108,7 @@ public class LoginFragment extends Fragment {
 
         editEmail.setText(user);
         editPassword.setText(pass);
+
     }
 
     private void guardarPreferencias(){

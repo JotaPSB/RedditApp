@@ -5,16 +5,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
+import cat.itb.redditapp.fragments.CommentFragment;
 import cat.itb.redditapp.helper.DatabaseHelper;
 import cat.itb.redditapp.model.Community;
 import cat.itb.redditapp.model.Post;
@@ -24,15 +30,17 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
 
     int layout;
     Context context;
+    FragmentActivity activity;
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
      * @param options
      */
-    public FirebasePostAdapter(@NonNull FirebaseRecyclerOptions<Post> options, int layout) {
+    public FirebasePostAdapter(@NonNull FirebaseRecyclerOptions<Post> options, int layout, FragmentActivity activity) {
         super(options);
         this.layout = layout;
+        this.activity = activity;
     }
 
     @Override
@@ -59,6 +67,8 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
         TextView likes;
         TextView comments;
 
+        ImageView commentImage;
+
 
         public PostHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,13 +79,13 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
             optionalText = itemView.findViewById(R.id.post_optional_text);
             likes = itemView.findViewById(R.id.post_likes);
             comments = itemView.findViewById(R.id.post_comments);
+
+            commentImage = itemView.findViewById(R.id.imageView3);
         }
 
         @SuppressLint("SetTextI18n")
         public void bind(Post post){
-//            Community c = DatabaseHelper.getCommunity(post.getCommunity());
-//            Picasso.with(context).load(c.getPicture()).into(comPicture);
-//            community.setText("r/"+c.getName());
+
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
             String optText = post.getContentText();
@@ -88,6 +98,17 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
                 @Override
                 public void onClick(View v) {
 
+                }
+            });
+            commentImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new CommentFragment();
+                    FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, fragment);
+                    MainActivity.currentFragment = fragment;
+                    MainActivity.loginHide();
+                    transaction.commit();
                 }
             });
         }

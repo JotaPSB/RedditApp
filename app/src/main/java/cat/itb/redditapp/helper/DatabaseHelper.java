@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 
+import cat.itb.redditapp.model.Comment;
 import cat.itb.redditapp.model.Community;
 import cat.itb.redditapp.model.Post;
 import id.zelory.compressor.Compressor;
@@ -35,6 +37,7 @@ public class DatabaseHelper {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference communityRef = database.getReference("Community");
     public static DatabaseReference postRef = database.getReference("Post");
+    public static DatabaseReference commentRef = database.getReference("Comment");
     static StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     static StorageReference storageRefCommunity = storageRef.child("community_pictures");
     static StorageReference storageRefPost = storageRef.child("post_pictures");
@@ -42,6 +45,8 @@ public class DatabaseHelper {
     static byte[] thumb_byte;
     static String imageUrl;
     static Community c;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
     public static void insertCommunity(Community c, String title ,String picture) throws IOException {
@@ -58,6 +63,13 @@ public class DatabaseHelper {
         p.setPostId(key);
         postRef.child(key).setValue(p);
     }
+
+    public static void insertComment(Comment c){
+        String key = commentRef.push().getKey();
+        c.setCommentId(key);
+        commentRef.child(key).setValue(c);
+    }
+
     public static void subirImagenCommunity(File f, Context context,String title){
         comprimirImagen(f, context);
         storageRefCommunity.child(title);
