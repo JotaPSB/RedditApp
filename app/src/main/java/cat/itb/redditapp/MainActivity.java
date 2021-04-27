@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 PostFragment fragment = new PostFragment();
                 Bundle args;
                 loginHide();
+                scrim.setVisibility(View.INVISIBLE);
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                 switch (item.getItemId()){
                     case R.id.text_post:
