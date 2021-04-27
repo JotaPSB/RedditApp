@@ -18,6 +18,9 @@
         android:id="@+id/include2"
         layout="@layout/activity_main"/>
 
+    <include
+        android:id="@+id/bottom_drawer_include"
+        layout="@layout/bottom_drawer"/>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
@@ -71,7 +74,5 @@
         </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
-    <include
-        android:id="@+id/bottom_drawer_include"
-        layout="@layout/bottom_drawer"/>
+    
 </androidx.drawerlayout.widget.DrawerLayout>
