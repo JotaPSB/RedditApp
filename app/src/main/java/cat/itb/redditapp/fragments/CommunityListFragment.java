@@ -39,8 +39,9 @@ public class CommunityListFragment extends Fragment {
         recyclerViewCommunity = v.findViewById(R.id.recycler_view_community);
         toolbar = v.findViewById(R.id.top_app_bar_community);
         recyclerViewCommunity.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        Bundle args = getArguments();
         FirebaseRecyclerOptions<Community> options =  new FirebaseRecyclerOptions.Builder<Community>().setQuery(DatabaseHelper.getCommunityRef(), Community.class).build();
-        adapter = new CommunityAdapter(options, getActivity(), "post");
+        adapter = new CommunityAdapter(options, getActivity(), args.getString("type"));
         recyclerViewCommunity.setAdapter(adapter);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

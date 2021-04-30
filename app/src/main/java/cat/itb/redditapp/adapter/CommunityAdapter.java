@@ -66,19 +66,16 @@ public class CommunityAdapter extends FirebaseRecyclerAdapter<Community, Communi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (flag) {
-                        case "post":
-                            PostFragment fragment = new PostFragment();
-                            Bundle args = new Bundle();
-                            args.putSerializable("community", (Serializable) c);
-                            fragment.setArguments(args);
-                            FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.fragment_container, fragment);
-                            transaction.commit();
-                            break;
-                        case "view":
-                            break;
-                    }
+
+                    PostFragment fragment = new PostFragment();
+                    Bundle args = new Bundle();
+                    args.putSerializable("community", (Serializable) c);
+                    args.putString("type", flag);
+                    fragment.setArguments(args);
+                    FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, fragment);
+                    transaction.commit();
+
                 }
             });
         }

@@ -71,6 +71,7 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
         ImageView downvote;
         TextView title;
         TextView optionalText;
+        ImageView optionalImage;
         TextView likes;
         TextView comments;
         String postId;
@@ -85,6 +86,7 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
             user = itemView.findViewById(R.id.post_user);
             title = itemView.findViewById(R.id.post_title);
             optionalText = itemView.findViewById(R.id.post_optional_text);
+            optionalImage = itemView.findViewById(R.id.post_optional_image);
             likes = itemView.findViewById(R.id.post_likes);
             comments = itemView.findViewById(R.id.post_comments);
             upvote = itemView.findViewById(R.id.upvote);
@@ -109,9 +111,21 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
 
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
-            String optText = post.getContentText();
-            if (optText!=null && !optText.isEmpty() && layout != R.layout.item_compact_view){
-                optionalText.setText(optText);
+            String type = post.getType();
+            String optContent = post.getContentText();
+            if (type.equals("text")) {
+                optionalText.setVisibility(View.VISIBLE);
+                optionalImage.setVisibility(View.GONE);
+                if (optContent != null && !optContent.isEmpty() && layout != R.layout.item_compact_view) {
+                    optionalText.setText(optContent);
+                }else {
+                    optionalText.setVisibility(View.GONE);
+                }
+            }
+            if (type.equals("image")){
+                optionalImage.setVisibility(View.VISIBLE);
+                optionalText.setVisibility(View.GONE);
+                Picasso.with(context).load(optContent).into(optionalImage);
             }
             likes.setText(String.valueOf(post.getVotes()));
             comments.setText(String.valueOf(post.getNumComments()));
