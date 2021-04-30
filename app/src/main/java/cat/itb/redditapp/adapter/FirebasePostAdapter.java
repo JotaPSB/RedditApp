@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -21,7 +24,9 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 
+import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
+import cat.itb.redditapp.fragments.CommentFragment;
 import cat.itb.redditapp.helper.DatabaseHelper;
 import cat.itb.redditapp.model.Community;
 import cat.itb.redditapp.model.Post;
@@ -31,15 +36,17 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
 
     int layout;
     Context context;
+    FragmentActivity activity;
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
      * @param options
      */
-    public FirebasePostAdapter(@NonNull FirebaseRecyclerOptions<Post> options, int layout) {
+    public FirebasePostAdapter(@NonNull FirebaseRecyclerOptions<Post> options, int layout, FragmentActivity activity) {
         super(options);
         this.layout = layout;
+        this.activity = activity;
     }
 
     @Override
@@ -64,9 +71,12 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
         ImageView downvote;
         TextView title;
         TextView optionalText;
+        ImageView optionalImage;
         TextView likes;
         TextView comments;
         String postId;
+
+        ImageView commentImage;
 
 
         public PostHolder(@NonNull View itemView) {
@@ -76,10 +86,13 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
             user = itemView.findViewById(R.id.post_user);
             title = itemView.findViewById(R.id.post_title);
             optionalText = itemView.findViewById(R.id.post_optional_text);
+            optionalImage = itemView.findViewById(R.id.post_optional_image);
             likes = itemView.findViewById(R.id.post_likes);
             comments = itemView.findViewById(R.id.post_comments);
             upvote = itemView.findViewById(R.id.upvote);
             downvote = itemView.findViewById(R.id.downvote);
+
+            commentImage = itemView.findViewById(R.id.imageView3);
         }
 
         @SuppressLint("SetTextI18n")
@@ -98,9 +111,21 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
 
             user.setText("Posted by u/"+ post.getUser());
             title.setText(post.getTitle());
-            String optText = post.getContentText();
-            if (optText!=null && !optText.isEmpty() && layout != R.layout.item_compact_view){
-                optionalText.setText(optText);
+            String type = post.getType();
+            String optContent = post.getContentText();
+            if (type.equals("text")) {
+                optionalText.setVisibility(View.VISIBLE);
+                optionalImage.setVisibility(View.GONE);
+                if (optContent != null && !optContent.isEmpty() && layout != R.layout.item_compact_view) {
+                    optionalText.setText(optContent);
+                }else {
+                    optionalText.setVisibility(View.GONE);
+                }
+            }
+            if (type.equals("image")){
+                optionalImage.setVisibility(View.VISIBLE);
+                optionalText.setVisibility(View.GONE);
+                Picasso.with(context).load(optContent).into(optionalImage);
             }
             likes.setText(String.valueOf(post.getVotes()));
             comments.setText(String.valueOf(post.getNumComments()));
@@ -130,6 +155,17 @@ public class FirebasePostAdapter extends FirebaseRecyclerAdapter<Post, FirebaseP
 
 
 
+            commentImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new CommentFragment();
+                    FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, fragment);
+                    MainActivity.currentFragment = fragment;
+                    MainActivity.loginHide();
+                    transaction.commit();
+                }
+            });
         }
 
         public void updateVoteButtons() {

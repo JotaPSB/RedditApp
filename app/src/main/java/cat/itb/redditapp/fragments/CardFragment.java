@@ -45,7 +45,7 @@ public class CardFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_recycler, container, false);
         recyclerView = v.findViewById(R.id.recycler_view);
         FirebaseRecyclerOptions<Post> options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(DatabaseHelper.postRef, Post.class).build();
-        adapter = new FirebasePostAdapter(options, R.layout.item_list_view);
+        adapter = new FirebasePostAdapter(options, R.layout.item_list_view, getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

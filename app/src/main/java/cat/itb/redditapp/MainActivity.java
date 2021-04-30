@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private static BottomSheetBehavior<NavigationView> bottomSheetBehavior;
     private Button cerrarSesion;
     private FirebaseAuth mAuth;
+    
 
 
     @Override
@@ -81,12 +82,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tablayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewpager_id);
 
-        mAuth = FirebaseAuth.getInstance();
         cerrarSesion = findViewById(R.id.footer_item_2);
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                DatabaseHelper.mAuth.signOut();
                 loginHide();
                 Fragment fragment = new LoginFragment();
                 FragmentTransaction transaction = MainActivity.this.getSupportFragmentManager().beginTransaction();
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 PostFragment fragment = new PostFragment();
                 Bundle args;
                 loginHide();
+                scrim.setVisibility(View.INVISIBLE);
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                 switch (item.getItemId()){
                     case R.id.text_post:
@@ -201,11 +202,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void visibilidadOff(){
+    private static void visibilidadOff(){
         tabLayout.setVisibility(View.GONE);
         viewPager.setVisibility(View.GONE);
     }
-    public void loginHide(){
+    public static void loginHide(){
         visibilidadOff();
         topAppBar.setVisibility(View.INVISIBLE);
         bottomNavigationView.setVisibility(View.INVISIBLE);

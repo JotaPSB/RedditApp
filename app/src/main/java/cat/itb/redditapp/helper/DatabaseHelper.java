@@ -3,8 +3,10 @@ package cat.itb.redditapp.helper;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,16 +22,23 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cat.itb.redditapp.adapter.FirebasePostAdapter;
+import cat.itb.redditapp.fragments.PostFragment;
+import cat.itb.redditapp.model.Comment;
 import cat.itb.redditapp.model.Community;
 import cat.itb.redditapp.model.Post;
 import id.zelory.compressor.Compressor;
@@ -38,60 +47,44 @@ public class DatabaseHelper {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference communityRef = database.getReference("Community");
     public static DatabaseReference postRef = database.getReference("Post");
+    public static DatabaseReference commentRef = database.getReference("Comment");
     public static DatabaseReference usersRef = database.getReference("Users");
-    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     static StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     static StorageReference storageRefCommunity = storageRef.child("community_pictures");
     static StorageReference storageRefPost = storageRef.child("post_pictures");
     static Bitmap thum_bitmap;
     static byte[] thumb_byte;
-    static String imageUrl;
+    public static String imageUrl;
     static Community c;
     static boolean isAdded;
     static List<String> listOfVotes;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private static String nombreImagen;
 
 
-    public static void insertCommunity(Community c, String title ,String picture) throws IOException {
-        String key = communityRef.push().getKey();
-        c.setCommunityId(key);
-        c.setName(title);
-        imageUrl = picture;
-        c.setPicture(imageUrl);
-        communityRef.child(key).setValue(c);
-    }
 
-    public static void insertPost(Post p){
+    public static String insertPost(Post p){
         String key = postRef.push().getKey();
+
         p.setPostId(key);
         postRef.child(key).setValue(p);
+        return key;
     }
-    public static void subirImagenCommunity(File f, Context context,String title){
-        comprimirImagen(f, context);
-        storageRefCommunity.child(title);
-        UploadTask uploadTask = storageRef.putBytes(thumb_byte);
-        Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    System.out.println("Imposible");
-                }
-                return storageRefCommunity.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                Uri downloadUri = task.getResult();
-                imageUrl = downloadUri.toString();
 
-            }
-        });
+    public static void insertComment(Comment c){
+        String key = commentRef.push().getKey();
+        c.setCommentId(key);
+        commentRef.child(key).setValue(c);
     }
-    public static void comprimirImagen(File f, Context c){
+
+
+    public static void comprimirImagen(Context context, File url) {
         try {
-            thum_bitmap = new Compressor(c)
-                    .compressToBitmap(f);
+            thum_bitmap = new Compressor(context)
+                    .compressToBitmap(url);
         } catch (IOException e) {
-            System.out.println("Este es el fallo: "+ e);
+            e.printStackTrace();
         }
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -100,6 +93,41 @@ public class DatabaseHelper {
     }
     public static DatabaseReference getCommunityRef(){
         return communityRef;
+    }
+
+    public static void subirImagen(final String postId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timeStamp = sdf.format(new Date());
+        nombreImagen = timeStamp + ".jpg";
+        String urlS;
+        final StorageReference ref = storageRefPost.child(nombreImagen);
+        UploadTask uploadTask = ref.putBytes(thumb_byte);
+        Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    System.out.println("Imposible");
+                }
+
+                return ref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                Uri downloadUri = task.getResult();
+                assert downloadUri != null;
+                imageUrl = downloadUri.toString();
+                readData(postRef, postId, Post.class, new MyCallback() {
+                    @Override
+                    public void onCallback(Object value) {
+                        Post v = (Post) value;
+                        v.setContentText(imageUrl);
+                        postRef.child(postId).setValue(v);
+                    }
+                });
+            }
+        });
+
     }
 
     public static void addVoteUser(final String postId, final String state, final boolean isToAdd){

@@ -28,6 +28,7 @@ import java.util.Map;
 
 import cat.itb.redditapp.MainActivity;
 import cat.itb.redditapp.R;
+import cat.itb.redditapp.helper.DatabaseHelper;
 
 public class RegistroFragment extends Fragment {
 
@@ -43,8 +44,6 @@ public class RegistroFragment extends Fragment {
     String email = "";
     String password = "";
 
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,9 +53,6 @@ public class RegistroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_registro, container, false);
-
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         logIn = v.findViewById(R.id.textViewLog);
         continueButton = v.findViewById(R.id.button6);
@@ -96,7 +92,7 @@ public class RegistroFragment extends Fragment {
     }
 
     private void registerUser(){
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        DatabaseHelper.mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -106,9 +102,9 @@ public class RegistroFragment extends Fragment {
                     map.put("email", email);
                     map.put("password", password);
 
-                    String id = mAuth.getCurrentUser().getUid();
+                    String id = DatabaseHelper.mAuth.getCurrentUser().getUid();
 
-                    mDatabase.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    DatabaseHelper.mDatabase.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){

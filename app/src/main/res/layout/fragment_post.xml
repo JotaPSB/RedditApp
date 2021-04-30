@@ -24,8 +24,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/post"
                 android:textColor="#03A9F4"
-                android:layout_marginLeft="290dp"
-                android:layout_marginStart="290dp" />
+
+
+                />
         </com.google.android.material.appbar.MaterialToolbar>
 
 
@@ -45,26 +46,25 @@
     <com.google.android.material.textfield.TextInputLayout
 
         android:id="@+id/textField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:startIconTint="@color/primaryLightColor"
+        android:background="@color/primaryColor"
         android:textColorHint="@color/primaryLightColor"
         app:boxBackgroundColor="@color/primaryColor"
-        android:background="@color/primaryColor"
         app:boxBackgroundMode="filled"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/com_picture"
-        >
+        app:startIconTint="@color/primaryLightColor">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/post_title"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bentonsans_book"
-            android:hint="An interesting Title"
-            android:textSize="12sp"
+            android:hint="@string/addTitle"
             android:textColor="@color/primaryTextColor"
-            />
+            android:textSize="12sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,26 +72,34 @@
 
         android:id="@+id/textField2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="392dp"
-        android:layout_height="448dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:textColorHint="@color/primaryLightColor"
-        app:boxBackgroundColor="@color/primaryColor"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/primaryColor"
+        android:textColorHint="@color/primaryLightColor"
+
+        app:boxBackgroundColor="@color/primaryColor"
         app:boxBackgroundMode="filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField" >
+        app:layout_constraintTop_toBottomOf="@+id/textField"
+        app:layout_constraintVertical_bias="0.0">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/post_optional_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bentonsans_book"
             android:hint="@string/postText"
-            android:textSize="12sp"
             android:textColor="@color/primaryTextColor"
-            />
+            android:textSize="12sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,4 +114,12 @@
         android:textColor="@color/primaryLightColor"
         app:layout_constraintStart_toEndOf="@+id/com_picture"
         app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+    <ImageView
+        android:id="@+id/image_post"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/default_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,13 @@
     <string name="addTitle">An interesting title</string>
     <string name="postText">Your text post (optional)</string>
 
+    <!--Comment Screen-->
+    <string name="addComment">Add a comment</string>
+
+    <!--Add comments screen-->
+    <string name="titleAddComment">Add comment</string>
+    <string name="hintAddComment">Your comment</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
