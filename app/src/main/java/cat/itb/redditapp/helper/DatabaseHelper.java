@@ -58,6 +58,9 @@ public class DatabaseHelper {
     static Community c;
     static boolean isAdded;
     static List<String> listOfVotes;
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private static String nombreImagen;
 
 
 
@@ -68,10 +71,37 @@ public class DatabaseHelper {
         postRef.child(key).setValue(p);
         return key;
     }
-    public static void subirImagenCommunity(File f, Context context,String title){
-        comprimirImagen(f, context);
-        storageRefCommunity.child(title);
-        UploadTask uploadTask = storageRef.putBytes(thumb_byte);
+
+    public static void insertComment(Comment c){
+        String key = commentRef.push().getKey();
+        c.setCommentId(key);
+        commentRef.child(key).setValue(c);
+    }
+
+
+    public static void comprimirImagen(Context context, File url) {
+        try {
+            thum_bitmap = new Compressor(context)
+                    .compressToBitmap(url);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        thum_bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+        thumb_byte = byteArrayOutputStream.toByteArray();
+    }
+    public static DatabaseReference getCommunityRef(){
+        return communityRef;
+    }
+
+    public static void subirImagen(final String postId) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timeStamp = sdf.format(new Date());
+        nombreImagen = timeStamp + ".jpg";
+        String urlS;
+        final StorageReference ref = storageRefPost.child(nombreImagen);
+        UploadTask uploadTask = ref.putBytes(thumb_byte);
         Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
